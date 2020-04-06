@@ -8,7 +8,8 @@
       const request = new XMLHttpRequest();
       let id = 302;
       request.open("GET","https://superheroapi.com/api/576486609627321/" + id +"/image", true);
-      console.log(request.readyState);
+      request.setRequestHeader('Access-Control-Allow-Origin', '*');
+      
       request.onreadystatechange = function() {
         console.log(request.readyState);
         if (request.readyState == 4 && request.status == 200){
