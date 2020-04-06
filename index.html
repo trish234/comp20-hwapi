@@ -6,14 +6,21 @@
   <script>
     function ajaxLoadData(){
       const request = new XMLHttpRequest();
-      let id = 302;
-      request.open("GET","https://whiskyhunter.net/api/auctions_data/", true);
+      request.open("GET","https://api.exchangeratesapi.io/latest", true);
+
       request.onreadystatechange = function() {
-        console.log(request.readyState);
         if (request.readyState == 4 && request.status == 200){
-          console.log("hello");
+          let data = JSON.parse(request.response);
+          /* Get ad display exchange rates for two countries */
+          let japan = data.rates.JPY;
+          document.getElementById("data-here").innerHTML += "Exchange rate for the Japan Yen: "
+          document.getElementById("data-here").innerHTML += (japan + "<br />");
+          let canada = data.rates.CAD;
+          document.getElementById("data-here").innerHTML += "Exchange rate for the Canda Dollar: "
+          document.getElementById("data-here").innerHTML += canada;
+
         } else if (request.readyState == 4 && request.status != 200) {
-           console.log("Something went wrong.");
+           console.log("Something went wrong. Load failed.");
         }
       }
       request.send();
