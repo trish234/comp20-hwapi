@@ -2,9 +2,33 @@
 <html>
 <head>
   <title>API Fun</title>
+  <meta charset="utf-8"/>
   <script>
+    function ajaxLoadData(){
+      const request = new XMLHttpRequest();
+      let id = 302;
+      request.open("GET","https://superheroapi.com/api/576486609627321/" + id +"/image", true);
+      console.log(request.readyState);
+      request.onreadystatechange = function() {
+        console.log(request.readyState);
+        if (request.readyState == 4 && request.status == 200){
+          console.log("hello");
+          let data = request.responseText;
+          document.getElementById("data-here").innerHTML += 
+            '<img src=\"' + request.url + '\" />';
+        } else if (request.readyState == 4 && request.status != 200) {
+           console.log("Something went wrong.");
+        }
+      }
+      request.send();
+    }
   </script>
 </head>
 <body>
+  <div id="data-here">
+  </div>
+  <script>
+      ajaxLoadData();
+  </script>
 </body>
 </html>
